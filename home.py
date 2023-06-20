@@ -72,17 +72,3 @@ elif selected2 == "Trending TV Shows":
                         st.error(f"**Adult Rated:** Yes", icon="🔞")
             st.divider()
         
-
-elif selected2 == "Search":
-    st.subheader('Search for a movie or tv show')
-    search_term = st.text_input('Enter a movie or tv show name')
-    if search_term:
-        with st.spinner('🔍 Searching for movies and tv shows...'):
-            menu = option_menu(None, ["Movies", "TV Shows"], icons=["tv", "tv"], menu_icon="cast", default_index=0, orientation="horizontal")
-            if menu == "Movies":
-                movies_url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search_term}'
-                response = requests.get(movies_url)
-                if response.status_code != 200:
-                    st.error('Error loading data')
-                data = response.json()
-                print(data)
