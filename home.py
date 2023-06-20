@@ -56,7 +56,7 @@ elif selected2 == "Trending TV Shows":
         for tv in data['results']:
             c = st.container()
             with c:
-                c1, c2 = st.columns((3,6), gap="small")
+                c1, c2 = st.columns(2)
                 with c1:
                     st.header(f"{tv['name']}")
                     st.image(f"https://image.tmdb.org/t/p/w300/{tv['poster_path']}")
@@ -71,4 +71,65 @@ elif selected2 == "Trending TV Shows":
                     else:
                         st.error(f"**Adult Rated:** Yes", icon="🔞")
             st.divider()
+        
+
+elif selected2 == "Search":
+    search = st.text_input('Search for movies and tv shows')
+    if search:
+        menu = option_menu(None, ["Movies", "TV Shows"], icons=["tv", "tv"], menu_icon="cast", default_index=0, orientation="horizontal")
+        if menu == "Movies":
+            with st.spinner('🔍 Searching for movies...'):
+                api_url = f'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}'
+                response = requests.get(api_url)
+                if response.status_code != 200:
+                    st.error('Error loading data')
+                data = response.json()
+                # parse results
+                for movie in data['results']:
+                    st.divider()
+                    c = st.container()
+                    with c:
+                        c1, c2 = st.columns((3,6), gap="small")
+                        with c1:
+                            st.header(f"{movie['title']}")
+                            st.image(f"https://image.tmdb.org/t/p/w300/{movie['poster_path']}")
+                        with c2:
+                            st.success(f"**Overview:** {movie['overview']}", icon="📝")
+                            st.error(f"**Release Date:** {movie['release_date']}", icon="📅")
+                            st.error(f"**Popularity:** {movie['popularity']}", icon="🔥")
+                            st.error(f"**Vote Average:** {movie['vote_average']}", icon="⭐")
+                            st.error(f"**Original Language:** {movie['original_language']}", icon="🌐")
+                            if movie['adult'] == False:
+                                st.error(f"**Adult Rated:** No", icon="🔞")
+                            else:
+                                st.error(f"**Adult Rated:** Yes", icon="🔞")
+                    st.divider()
+        elif menu == "TV Shows":
+            with st.spinner('🔍 Searching for tv shows...'):
+                api_url = f'https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}'
+                response = requests.get(api_url)
+                if response.status_code != 200:
+                    st.error('Error loading data')
+                data = response.json()
+                # parse results
+                for tv in data['results']:
+                    c = st.container()
+                    with c:
+                        c1, c2 = st.columns(2)
+                        with c1:
+                            st.header(f"{tv['name']}")
+                            st.image(f"https://image.tmdb.org/t/p/w300/{tv['poster_path']}")
+                        with c2:
+                            st.success(f"**Overview:** {tv['overview']}", icon="📝")
+                            st.error(f"**Release Date:** {tv['first_air_date']}", icon="📅")
+                            st.error(f"**Popularity:** {tv['popularity']}", icon="🔥")
+                            st.error(f"**Vote Average:** {tv['vote_average']}", icon="⭐")
+                            st.error(f"**Original Language:** {tv['original_language']}", icon="🌐")
+                            if tv['adult'] == False:
+                                st.error(f"**Adult Rated:** No", icon="🔞")
+                            else:
+                                st.error(f"**Adult Rated:** Yes", icon="🔞")
+                    st.divider()
+
+
         
