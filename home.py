@@ -133,3 +133,5 @@ elif selected2 == "Search":
 
 
         
+st.divider()
+st.markdown("Made with ❤️ by [Saad Waseem](https://github.com/saad5353)")
