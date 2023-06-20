@@ -56,7 +56,7 @@ elif selected2 == "Trending TV Shows":
         for tv in data['results']:
             c = st.container()
             with c:
-                c1, c2 = st.columns(2)
+                c1, c2 = st.columns((3,6), gap="small")
                 with c1:
                     st.header(f"{tv['name']}")
                     st.image(f"https://image.tmdb.org/t/p/w300/{tv['poster_path']}")
@@ -115,7 +115,7 @@ elif selected2 == "Search":
                 for tv in data['results']:
                     c = st.container()
                     with c:
-                        c1, c2 = st.columns(2)
+                        c1, c2 = st.columns((3,6), gap="small")
                         with c1:
                             st.header(f"{tv['name']}")
                             st.image(f"https://image.tmdb.org/t/p/w300/{tv['poster_path']}")
