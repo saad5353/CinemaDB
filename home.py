@@ -21,4 +21,5 @@ if selected2 == "Movies":
         api_url = f'https://api.themoviedb.org/3/trending/movie/day?api_key={api_key}'
         response = requests.get(api_url)
         data = response.json()
+        print(data)
         
